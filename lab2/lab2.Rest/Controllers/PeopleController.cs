@@ -29,27 +29,42 @@ namespace lab2.Rest.Controllers
         [HttpGet("{id}")]
         public ActionResult<Person> Get(int id)
         {
-            var person = new Person();
+            var person = context.People.Single(p => p.PersonId == id);
             return person;
         }
 
         [HttpPost]
         public void Post([FromBody] Person value)
         {
-            
+            var people = context.Set<Person>();
+            people.Add(value);
+            context.SaveChanges();
         }
 
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] Person value)
         {
-            
+            var existingPerson = context.People.Where(p => p.PersonId == id).FirstOrDefault<Person>();
+
+            if (existingPerson != null)
+            {
+                existingPerson.FirstName = value.FirstName;
+                existingPerson.LastName = value.LastName;
+
+                context.SaveChanges();
+            }
         }
 
 
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-            
+            var existingPerson = context.People.Where(p => p.PersonId == id).FirstOrDefault<Person>();
+            if (existingPerson != null)
+            {
+                context.Remove(existingPerson);
+                context.SaveChanges();
+            }
         }
     }
 }

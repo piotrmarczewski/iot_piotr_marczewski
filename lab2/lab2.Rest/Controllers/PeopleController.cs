@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace lab2.Rest.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class PeopleController : ControllerBase
     {
         private readonly AzureDbContext context;

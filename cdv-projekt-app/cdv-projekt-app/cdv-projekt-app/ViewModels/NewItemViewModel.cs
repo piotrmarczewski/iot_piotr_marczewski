@@ -12,7 +12,7 @@ namespace cdv_projekt_app.ViewModels
     {
         private decimal weight;
         private DateTime date;
-        private string description;
+        private string description = "";
 
         public NewItemViewModel()
         {
@@ -67,7 +67,7 @@ namespace cdv_projekt_app.ViewModels
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("Błąd!", "Coś poszło nie tak.", "Zamknij");
+                await Application.Current.MainPage.DisplayAlert("Błąd!", "Coś poszło nie tak." + response.ToString(), "Zamknij");
             }
         }
     }

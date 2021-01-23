@@ -7,11 +7,11 @@
     <ContentPage.Content>
         <StackLayout Spacing="3" Padding="15">
             <Label Text="Waga" FontSize="Medium" />
-            <Entry FontSize="Medium" Keyboard="Numeric" />
+            <Entry Text="{Binding Weight,Mode=OneWayToSource}" FontSize="Medium" Keyboard="Numeric" />
             <Label Text="Data" FontSize="Medium" />
-            <DatePicker FontSize="Medium"></DatePicker>
+            <DatePicker Date="{Binding Date,Mode=OneWayToSource}" FontSize="Medium"></DatePicker>
             <Label Text="Opis" FontSize="Medium" />
-            <Editor AutoSize="TextChanges" FontSize="Medium" Margin="0" />
+            <Editor Text="{Binding Description,Mode=OneWayToSource}" AutoSize="TextChanges" FontSize="Medium" Margin="0" />
             <StackLayout Orientation="Horizontal">
                 <Button Text="Anuluj" Command="{Binding CancelCommand}" HorizontalOptions="FillAndExpand"></Button>
                 <Button Text="Zapisz" Command="{Binding SaveCommand}" HorizontalOptions="FillAndExpand"></Button>

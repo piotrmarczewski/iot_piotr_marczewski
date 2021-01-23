@@ -1,21 +1,21 @@
-﻿using System;
+﻿using cdv_projekt_app.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using cdv_projekt_app.Models;
-using cdv_projekt_app.ViewModels;
+
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
 namespace cdv_projekt_app.Views
 {
-    public partial class LoginPage : ContentPage
+    public partial class RegisterPage : ContentPage
     {
-        public LoginPage()
+        public RegisterPage()
         {
             InitializeComponent();
-            this.BindingContext = new LoginViewModel();
+            this.BindingContext = new RegisterViewModel();
         }
     }
 }

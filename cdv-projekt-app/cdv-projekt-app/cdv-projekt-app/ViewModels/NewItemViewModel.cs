@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using cdv_projekt_app.Api;
 using cdv_projekt_app.Models;
 using Xamarin.Forms;
 
@@ -9,7 +10,8 @@ namespace cdv_projekt_app.ViewModels
 {
     public class NewItemViewModel : BaseViewModel
     {
-        private string text;
+        private decimal weight;
+        private DateTime date;
         private string description;
 
         public NewItemViewModel()
@@ -22,14 +24,20 @@ namespace cdv_projekt_app.ViewModels
 
         private bool ValidateSave()
         {
-            return !String.IsNullOrWhiteSpace(text)
-                && !String.IsNullOrWhiteSpace(description);
+            return !String.IsNullOrWhiteSpace(weight.ToString())
+                && !String.IsNullOrWhiteSpace(date.ToString());
         }
 
-        public string Text
+        public decimal Weight
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => weight;
+            set => SetProperty(ref weight, value);
+        }
+
+        public DateTime Date
+        {
+            get => date;
+            set => SetProperty(ref date, value);
         }
 
         public string Description
@@ -49,17 +57,18 @@ namespace cdv_projekt_app.ViewModels
 
         private async void OnSave()
         {
-            Item newItem = new Item()
+            var response = await ApiClient.AddWeightUser(Weight, Date, Description);
+
+            if (response)
             {
-                Id = Guid.NewGuid().ToString(),
-                Text = Text,
-                Description = Description
-            };
+                await Shell.Current.GoToAsync("..");
+                //Application.Current.MainPage = new AppShell();
 
-            await DataStore.AddItemAsync(newItem);
-
-            // This will pop the current page off the navigation stack
-            await Shell.Current.GoToAsync("..");
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Błąd!", "Coś poszło nie tak.", "Zamknij");
+            }
         }
     }
 }

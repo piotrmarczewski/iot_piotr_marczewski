@@ -10,6 +10,8 @@ using Xamarin.Forms.Xaml;
 using cdv_projekt_app.Models;
 using cdv_projekt_app.Views;
 using cdv_projekt_app.ViewModels;
+using cdv_projekt_app.Api;
+using System.Collections.ObjectModel;
 
 namespace cdv_projekt_app.Views
 {
@@ -17,11 +19,13 @@ namespace cdv_projekt_app.Views
     {
         ItemsViewModel _viewModel;
 
+        public ObservableCollection<WeightInfo> WeightCollection;
+
         public ItemsPage()
         {
             InitializeComponent();
 
-            BindingContext = _viewModel = new ItemsViewModel();
+            this.BindingContext = _viewModel = new ItemsViewModel();
         }
 
         protected override void OnAppearing()

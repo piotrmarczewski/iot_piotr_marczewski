@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Threading.Tasks;
+using cdv_projekt_app.Api;
 using cdv_projekt_app.Models;
 using Xamarin.Forms;
 
@@ -10,14 +11,21 @@ namespace cdv_projekt_app.ViewModels
     public class ItemDetailViewModel : BaseViewModel
     {
         private string itemId;
-        private string text;
+        private decimal weight;
+        private DateTime date;
         private string description;
         public string Id { get; set; }
 
-        public string Text
+        public decimal Weight
         {
-            get => text;
-            set => SetProperty(ref text, value);
+            get => weight;
+            set => SetProperty(ref weight, value);
+        }
+
+        public DateTime Date
+        {
+            get => date;
+            set => SetProperty(ref date, value);
         }
 
         public string Description
@@ -43,10 +51,10 @@ namespace cdv_projekt_app.ViewModels
         {
             try
             {
-                var item = await DataStore.GetItemAsync(itemId);
-                Id = item.Id;
-                Text = item.Text;
-                Description = item.Description;
+                var item = await ApiClient.GetOneWeightUser(itemId);
+                Weight = item.weight;
+                Date = item.date;
+                Description = item.description;
             }
             catch (Exception)
             {

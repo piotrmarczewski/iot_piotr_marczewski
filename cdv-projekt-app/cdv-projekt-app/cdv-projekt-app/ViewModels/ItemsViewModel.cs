@@ -7,25 +7,26 @@ using Xamarin.Forms;
 
 using cdv_projekt_app.Models;
 using cdv_projekt_app.Views;
+using cdv_projekt_app.Api;
 
 namespace cdv_projekt_app.ViewModels
 {
     public class ItemsViewModel : BaseViewModel
     {
-        private Item _selectedItem;
+        private WeightInfo _selectedItem;
 
-        public ObservableCollection<Item> Items { get; }
+        public ObservableCollection<WeightInfo> Items { get; }
         public Command LoadItemsCommand { get; }
         public Command AddItemCommand { get; }
-        public Command<Item> ItemTapped { get; }
+        public Command<WeightInfo> ItemTapped { get; }
 
         public ItemsViewModel()
         {
-            Title = "Browse";
-            Items = new ObservableCollection<Item>();
+            Title = "Wyniki ważenia";
+            Items = new ObservableCollection<WeightInfo>();
             LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
 
-            ItemTapped = new Command<Item>(OnItemSelected);
+            ItemTapped = new Command<WeightInfo>(OnItemSelected);
 
             AddItemCommand = new Command(OnAddItem);
         }
@@ -37,7 +38,7 @@ namespace cdv_projekt_app.ViewModels
             try
             {
                 Items.Clear();
-                var items = await DataStore.GetItemsAsync(true);
+                var items = await ApiClient.GetWeightUser();
                 foreach (var item in items)
                 {
                     Items.Add(item);
@@ -59,7 +60,7 @@ namespace cdv_projekt_app.ViewModels
             SelectedItem = null;
         }
 
-        public Item SelectedItem
+        public WeightInfo SelectedItem
         {
             get => _selectedItem;
             set
@@ -74,13 +75,13 @@ namespace cdv_projekt_app.ViewModels
             await Shell.Current.GoToAsync(nameof(NewItemPage));
         }
 
-        async void OnItemSelected(Item item)
+        async void OnItemSelected(WeightInfo item)
         {
             if (item == null)
                 return;
 
             // This will push the ItemDetailPage onto the navigation stack
-            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.Id}");
+            await Shell.Current.GoToAsync($"{nameof(ItemDetailPage)}?{nameof(ItemDetailViewModel.ItemId)}={item.id}");
         }
     }
 }

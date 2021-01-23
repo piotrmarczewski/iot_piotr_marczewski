@@ -5,9 +5,11 @@
              Title="{Binding Title}">
 
     <StackLayout Spacing="20" Padding="15">
-        <Label Text="Text:" FontSize="Medium" />
-        <Label Text="{Binding Text}" FontSize="Small"/>
-        <Label Text="Description:" FontSize="Medium" />
+        <Label Text="Waga:" FontSize="Medium" />
+        <Label Text="{Binding Weight}" FontSize="Small"/>
+        <Label Text="Data:" FontSize="Medium" />
+        <Label Text="{Binding Date, StringFormat='{0:yyyy-MM-dd}'}" FontSize="Small"/>
+        <Label Text="Opis:" FontSize="Medium" />
         <Label Text="{Binding Description}" FontSize="Small"/>
     </StackLayout>
     
